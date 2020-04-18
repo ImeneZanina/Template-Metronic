@@ -10,36 +10,12 @@ class Footer extends Component {
             <div className="kt-footer__wrapper">
               <div className="kt-footer__copyright">
                 2020&nbsp;©&nbsp;
-                <a
-                  href="http://keenthemes.com/metronic"
-                  target="_blank"
-                  className="kt-link"
-                >
-                  Keenthemes
-                </a>
+                <p> Portail d'aviculture</p>
               </div>
               <div className="kt-footer__menu">
-                <a
-                  href="http://keenthemes.com/metronic"
-                  target="_blank"
-                  className="kt-link"
-                >
-                  About
-                </a>
-                <a
-                  href="http://keenthemes.com/metronic"
-                  target="_blank"
-                  className="kt-link"
-                >
-                  Team
-                </a>
-                <a
-                  href="http://keenthemes.com/metronic"
-                  target="_blank"
-                  className="kt-link"
-                >
-                  Contact
-                </a>
+                <p style={{ color: "rgba(255,255,255,.5)" }}>
+                  Réalisé par Nazih{" & "}Imene
+                </p>
               </div>
             </div>
           </div>

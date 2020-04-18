@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
-class PublicLayout extends Component {
+class Event extends Component {
   render() {
     return <div></div>;
   }
 }
 
-export default PublicLayout;
+export default Event;

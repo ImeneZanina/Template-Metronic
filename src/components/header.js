@@ -1,6 +1,38 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 class Header extends Component {
+  state = {
+    urlDashBordActif: true,
+    urlPrixActif: false,
+    urlCRUDActif: false,
+  };
+  componentDidMount() {
+    this.urlActif(localStorage.getItem("url"));
+  }
+  urlActif = (url) => {
+    if (url === "Dashboards") {
+      localStorage.setItem("url", "Dashboards");
+      this.setState({
+        urlDashBordActif: true,
+        urlPrixActif: false,
+        urlCRUDActif: false,
+      });
+    } else if (url === "Prix") {
+      localStorage.setItem("url", "Prix");
+      this.setState({
+        urlDashBordActif: false,
+        urlPrixActif: true,
+        urlCRUDActif: false,
+      });
+    } else if (url === "CRUD") {
+      localStorage.setItem("url", "CRUD");
+      this.setState({
+        urlDashBordActif: false,
+        urlPrixActif: false,
+        urlCRUDActif: true,
+      });
+    }
+  };
   render() {
     return (
       <div>
@@ -10,7 +42,12 @@ class Header extends Component {
         >
           <div className="kt-header-mobile__logo">
             <a href="index-2.html">
-              <img alt="Logo" src="../assets/media/logos/logo-8-sm.png" />
+              <img
+                alt="Logo"
+                src={
+                  process.env.PUBLIC_URL + "/assets/media/logos/logo-8-sm.png"
+                }
+              />
             </a>
           </div>
           <div className="kt-header-mobile__toolbar">
@@ -51,12 +88,18 @@ class Header extends Component {
                         <a href="index-2.html">
                           <img
                             alt="Logo"
-                            src="../assets/media/logos/logo-8.png"
+                            src={
+                              process.env.PUBLIC_URL +
+                              "/assets/media/logos/logo-8.png"
+                            }
                             className="kt-header__brand-logo-default"
                           />
                           <img
                             alt="Logo"
-                            src="../assets/media/logos/logo-8-inverse.png"
+                            src={
+                              process.env.PUBLIC_URL +
+                              "/assets/media/logos/logo-8-inverse.png"
+                            }
                             className="kt-header__brand-logo-sticky"
                           />
                         </a>
@@ -139,7 +182,10 @@ class Header extends Component {
                           </span>
                           <img
                             alt="Pic"
-                            src="../assets/media/users/300_21.jpg"
+                            src={
+                              process.env.PUBLIC_URL +
+                              "/assets/media/users/300_21.jpg"
+                            }
                           />
                           <span className="kt-header__topbar-icon kt-bg-brand kt-font-lg kt-font-bold kt-font-light kt-hidden">
                             S
@@ -155,7 +201,10 @@ class Header extends Component {
                               <img
                                 className="kt-hidden-"
                                 alt="Pic"
-                                src="../assets/media/users/300_25.jpg"
+                                src={
+                                  process.env.PUBLIC_URL +
+                                  "/assets/media/users/300_25.jpg"
+                                }
                               />
                               {/*use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) */}
                               <span className="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">
@@ -299,21 +348,32 @@ class Header extends Component {
                       >
                         <ul className="kt-menu__nav ">
                           <li
-                            className="kt-menu__item  kt-menu__item--open kt-menu__item--here kt-menu__item--submenu kt-menu__item--rel"
+                            className={
+                              "kt-menu__item   kt-menu__item--submenu kt-menu__item--rel" +
+                              (this.state.urlDashBordActif
+                                ? " kt-menu__item--open kt-menu__item--here "
+                                : "")
+                            }
                             data-ktmenu-submenu-toggle="hover"
                             aria-haspopup="true"
                           >
-                            <a
-                              href="index-2.html"
-                              className="kt-menu__link kt-menu__toggle"
+                            <Link
+                              to="/portail"
+                              className="kt-menu__link "
+                              onClick={() => this.urlActif("Dashboards")}
                             >
                               <span className="kt-menu__link-text">
                                 Dashboards
                               </span>
-                            </a>
+                            </Link>
                           </li>
                           <li
-                            className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
+                            className={
+                              "kt-menu__item   kt-menu__item--submenu kt-menu__item--rel" +
+                              (this.state.urlPrixActif
+                                ? " kt-menu__item--open kt-menu__item--here "
+                                : "")
+                            }
                             data-ktmenu-submenu-toggle="click"
                             aria-haspopup="true"
                           >
@@ -323,7 +383,6 @@ class Header extends Component {
                             >
                               <span className="kt-menu__link-text">Prix</span>
                               <i className="kt-menu__hor-arrow la la-angle-down" />
-                              <i className="kt-menu__ver-arrow la la-angle-right" />
                             </a>
                             <div className="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
                               <ul className="kt-menu__subnav">
@@ -332,36 +391,43 @@ class Header extends Component {
                                   data-ktmenu-submenu-toggle="hover"
                                   aria-haspopup="true"
                                 >
-                                  <a
-                                    href="javascript:;"
-                                    className="kt-menu__link kt-menu__toggle"
+                                  <Link
+                                    to="/portail/prix/ajoutprix"
+                                    className="kt-menu__link "
+                                    onClick={() => this.urlActif("Prix")}
                                   >
-                                    <i className="fa-money-bill-wave" />
+                                    <i className="fa  fa-lg fa-money-bill-wave kt-menu__link-icon" />
                                     <span className="kt-menu__link-text">
                                       Créer un prix
                                     </span>
-                                  </a>
+                                  </Link>
                                 </li>
                                 <li
                                   className="kt-menu__item  kt-menu__item--submenu"
                                   data-ktmenu-submenu-toggle="hover"
                                   aria-haspopup="true"
                                 >
-                                  <a
-                                    href="javascript:;"
-                                    className="kt-menu__link kt-menu__toggle"
+                                  <Link
+                                    to="/portail/prix/listeprix"
+                                    className="kt-menu__link "
+                                    onClick={() => this.urlActif("Prix")}
                                   >
-                                    <i className="kt-menu__link-icon flaticon2-photograph" />
+                                    <i className="kt-menu__link-icon fa fa-clipboard-list fa-lg" />
                                     <span className="kt-menu__link-text">
                                       Listes des prix
                                     </span>
-                                  </a>
+                                  </Link>
                                 </li>
                               </ul>
                             </div>
                           </li>
                           <li
-                            className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
+                            className={
+                              "kt-menu__item   kt-menu__item--submenu kt-menu__item--rel" +
+                              (this.state.urlCRUDActif
+                                ? " kt-menu__item--open kt-menu__item--here "
+                                : "")
+                            }
                             data-ktmenu-submenu-toggle="click"
                             aria-haspopup="true"
                           >
@@ -380,30 +446,48 @@ class Header extends Component {
                                   data-ktmenu-submenu-toggle="hover"
                                   aria-haspopup="true"
                                 >
-                                  <a
-                                    href="javascript:;"
-                                    className="kt-menu__link kt-menu__toggle"
+                                  <Link
+                                    to="/portail/crud/region"
+                                    className="kt-menu__link "
+                                    onClick={() => this.urlActif("CRUD")}
                                   >
                                     <i className="fa-money-bill-wave" />
                                     <span className="kt-menu__link-text">
-                                      Créer un prix
+                                      Région
                                     </span>
-                                  </a>
+                                  </Link>
                                 </li>
                                 <li
                                   className="kt-menu__item  kt-menu__item--submenu"
                                   data-ktmenu-submenu-toggle="hover"
                                   aria-haspopup="true"
                                 >
-                                  <a
-                                    href="javascript:;"
-                                    className="kt-menu__link kt-menu__toggle"
+                                  <Link
+                                    to="/portail/crud/calibre"
+                                    className="kt-menu__link "
+                                    onClick={() => this.urlActif("CRUD")}
                                   >
                                     <i className="kt-menu__link-icon flaticon2-photograph" />
                                     <span className="kt-menu__link-text">
-                                      Listes des prix
+                                      Calibre
                                     </span>
-                                  </a>
+                                  </Link>
+                                </li>
+                                <li
+                                  className="kt-menu__item  kt-menu__item--submenu"
+                                  data-ktmenu-submenu-toggle="hover"
+                                  aria-haspopup="true"
+                                >
+                                  <Link
+                                    to="/portail/crud/evenement"
+                                    className="kt-menu__link "
+                                    onClick={() => this.urlActif("CRUD")}
+                                  >
+                                    <i className="kt-menu__link-icon flaticon2-photograph" />
+                                    <span className="kt-menu__link-text">
+                                      Evénement
+                                    </span>
+                                  </Link>
                                 </li>
                               </ul>
                             </div>
@@ -415,7 +499,7 @@ class Header extends Component {
                   </div>
                 </div>
               </div>
-              {/* end:: Header */}
+              {/* end:: Headerr */}
             </div>
           </div>
         </div>
